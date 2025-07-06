@@ -2,13 +2,6 @@
 ## are from edge 40 pro (15 V1TRS35H.60-33-5 7195d7-c0632).
 ## variant: RETAIL
 
-# Current blobs with ELF checks disabled:
-# audio.primary.kalama.so depends on liblx-osal and vendor.qti.hardware.AGMIPC@1.0-impl, which are gnu makefile targets
-# libagm depends on libar-gsl, libats and liblx-osal, which are gnu makefile targets
-# libar-pal depends on libagmclient, which is a gnu makefile target
-# libmcs depends on libar-acdb, libats and liblx-osal, which are gnu makefile targets
-# libqc2audio_hwaudiocodec depends on libpalclient, which is a gnu makefile target
-
 # ADSP
 vendor/bin/adsprpcd
 vendor/bin/audioadsprpcd
@@ -98,11 +91,11 @@ vendor/lib/rfsa/adsp/libvpt_action_recognition.so
 vendor/lib/rfsa/adsp/libworker_pool.so
 
 # Audio libraries
-vendor/lib64/hw/audio.primary.kalama.so;DISABLE_CHECKELF
+vendor/lib64/hw/audio.primary.kalama.so
 vendor/lib64/libPeripheralStateUtils.so
 vendor/lib64/libadm.so
-vendor/lib64/libagm.so;DISABLE_CHECKELF
-vendor/lib64/libar-pal.so;DISABLE_CHECKELF
+vendor/lib64/libagm.so
+vendor/lib64/libar-pal.so
 vendor/lib64/libaualgo_ainr_component.so
 vendor/lib64/libaualgo_ainr_wrapper.so
 vendor/lib64/libaualgo_arp_component.so
@@ -114,7 +107,7 @@ vendor/lib64/libaualgo_sst_component.so
 vendor/lib64/libaudio_log_utils.so
 vendor/lib64/libdapparamstorage.so
 vendor/lib64/libext_tflite_c.so
-vendor/lib64/libmcs.so;DISABLE_CHECKELF
+vendor/lib64/libmcs.so
 vendor/lib64/libqtigefar.so
 vendor/lib64/libspatializerparamstorage.so
 vendor/lib64/vendor.qti.hardware.pal@1.0-impl.so
@@ -740,7 +733,7 @@ vendor/lib64/libqc2audio_base.so
 vendor/lib64/libqc2audio_basecodec.so
 vendor/lib64/libqc2audio_core.so
 vendor/lib64/libqc2audio_hooks.so
-vendor/lib64/libqc2audio_hwaudiocodec.so;DISABLE_CHECKELF
+vendor/lib64/libqc2audio_hwaudiocodec.so
 vendor/lib64/libqc2audio_platform.so
 vendor/lib64/libqc2audio_swaudiocodec.so
 vendor/lib64/libqc2audio_utils.so
