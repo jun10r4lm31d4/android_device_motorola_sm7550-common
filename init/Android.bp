@@ -99,26 +99,26 @@ sh_binary {
 }
 
 sh_binary {
-    name: "init.kernel.post_boot-kalama_3_2_1.sh",
-    src: "init.kernel.post_boot-kalama_3_2_1.sh",
+    name: "init.kernel.post_boot-crow_4_2_1.sh",
+    src: "init.kernel.post_boot-crow_4_2_1.sh",
     vendor: true,
 }
 
 sh_binary {
-    name: "init.kernel.post_boot-kalama_3_4_0.sh",
-    src: "init.kernel.post_boot-kalama_3_4_0.sh",
+    name: "init.kernel.post_boot-crow_4_3_0.sh",
+    src: "init.kernel.post_boot-crow_4_3_0.sh",
     vendor: true,
 }
 
 sh_binary {
-    name: "init.kernel.post_boot-kalama_default_3_4_1.sh",
-    src: "init.kernel.post_boot-kalama_default_3_4_1.sh",
+    name: "init.kernel.post_boot-crow_default_4_3_1.sh",
+    src: "init.kernel.post_boot-crow_default_4_3_1.sh",
     vendor: true,
 }
 
 sh_binary {
-    name: "init.kernel.post_boot-kalama.sh",
-    src: "init.kernel.post_boot-kalama.sh",
+    name: "init.kernel.post_boot-crow.sh",
+    src: "init.kernel.post_boot-crow.sh",
     vendor: true,
 }
 
@@ -136,12 +136,6 @@ sh_binary {
 sh_binary {
     name: "init.mmi.boot.sh",
     src: "init.mmi.boot.sh",
-    vendor: true,
-}
-
-sh_binary {
-    name: "init.mmi.cap.sh",
-    src: "init.mmi.cap.sh",
     vendor: true,
 }
 
@@ -172,12 +166,6 @@ sh_binary {
 sh_binary {
     name: "init.qcom.post_boot.sh",
     src: "init.qcom.post_boot.sh",
-    vendor: true,
-}
-
-sh_binary {
-    name: "init.qcom.sensors.sh",
-    src: "init.qcom.sensors.sh",
     vendor: true,
 }
 

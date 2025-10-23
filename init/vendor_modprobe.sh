@@ -47,7 +47,7 @@ do
 		blocklist_expr="-e %"
 	fi
 	# Filter out modules in blocklist - we would see unnecessary errors otherwise
-	load_modules=$(cat ${dir}/modules.load | grep -w -v ${blocklist_expr} | grep -w -v ${audio_blocklist_expr})
+	load_modules=$(sed = ${dir}/modules.load | sed 'N;s/\n/\t/' | sort -uk2 | sort -nk1 | cut -f2- | grep -w -v ${blocklist_expr} | grep -w -v ${audio_blocklist_expr})
 	first_module=$(echo ${load_modules} | cut -d " " -f1)
 	other_modules=$(echo ${load_modules} | cut -d " " -f2-)
 	if ! ${MODPROBE} -b -s -d ${dir} -a ${first_module} > /dev/null ; then

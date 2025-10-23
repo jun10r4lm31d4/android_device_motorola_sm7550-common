@@ -26,10 +26,10 @@ ro.vendor.audio.crystal_talk.supported=true
 ro.vendor.audio.crystal_talk_record.2mic.supported=false
 ro.vendor.audio.crystal_talk_record.max_rate=16000
 ro.vendor.audio.crystal_talk_record.supported=false
-ro.vendor.audio.game_mic.supported
 ro.vendor.audio.sdk.fluencetype=none
 ro.vendor.audio.sdk.ssr=false
 vendor.audio.adm.buffering.ms=2
+vendor.audio.ainr_in_zoom=true
 vendor.audio.c2.preferred=true
 vendor.audio.compress_capture.aac=true
 vendor.audio.compress_capture.enabled=true
@@ -37,7 +37,6 @@ vendor.audio.enable.mirrorlink=false
 vendor.audio.flac.sw.decoder.24bit=true
 vendor.audio.hal.boot.timeout.ms=20000
 vendor.audio.hal.output.suspend.supported=true
-vendor.audio.hdr.spf.record.enable=true
 vendor.audio.hw.aac.encoder=false
 vendor.audio.offload.buffer.size.kb=32
 vendor.audio.offload.gapless.enabled=true
@@ -46,7 +45,6 @@ vendor.audio.offload.multiple.enabled=false
 vendor.audio.offload.passthrough=false
 vendor.audio.offload.track.enable=true
 vendor.audio.parser.ip.buffer.size=262144
-vendor.audio.safe.resistance=6.5,6.3
 vendor.audio.safx.pbe.enabled=false
 vendor.audio.snd_card.open.retries=50
 vendor.audio.tunnel.encode=false
@@ -201,6 +199,9 @@ persist.vendor.dpm.vndr.tcm=2
 # DRM
 drm.service.enabled=true
 
+# Enable DeviceAsWebcam support
+ro.usb.uvc.enabled=true
+
 # Fingerprint
 persist.vendor.qfp=true
 
@@ -301,7 +302,6 @@ ro.vendor.use_data_netmgrd=true
 persist.vendor.sensors.enable.mag_filter=true
 persist.vendor.sensors.mot_tap=true
 ro.vendor.sensors.enlarge_tries_count=true
-ro.vendor.sensors.front_light_compensate=true
 ro.vendor.sensors.glance_approach=false
 ro.vendor.sensors.led_interfere_rear_light=true
 ro.vendor.sensors.sns_offbody=false
@@ -313,11 +313,9 @@ sys.vendor.shutdown.waittime=500
 # SOC
 ro.hardware.soc.manufacturer=qcom
 ro.soc.manufacturer=QTI
-ro.soc.model=SM8550
+ro.soc.model=SM7550
 
 # Surfaceflinger
-ro.sf.lcd_density=400
-ro.surface_flinger.enable_frame_rate_override=true
 ro.surface_flinger.force_hwc_copy_for_virtual_displays=true
 ro.surface_flinger.has_HDR_display=true
 ro.surface_flinger.has_wide_color_display=true

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#define LOG_TAG "lineage.touch-service.moto_sm8550"
+#define LOG_TAG "lineage.touch-service.moto_sm7550"
 
 #include "TouchscreenGesture.h"
 

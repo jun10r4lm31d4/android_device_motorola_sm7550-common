@@ -4,9 +4,9 @@
 //
 
 cc_binary {
-    name: "vendor.lineage.touch-service.moto_sm8550",
-    vintf_fragments: ["vendor.lineage.touch-service.moto_sm8550.xml"],
-    init_rc: ["vendor.lineage.touch-service.moto_sm8550.rc"],
+    name: "vendor.lineage.touch-service.moto_sm7550",
+    vintf_fragments: ["vendor.lineage.touch-service.moto_sm7550.xml"],
+    init_rc: ["vendor.lineage.touch-service.moto_sm7550.rc"],
     relative_install_path: "hw",
     proprietary: true,
     srcs: [

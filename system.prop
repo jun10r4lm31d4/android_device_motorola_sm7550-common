@@ -12,6 +12,9 @@ persist.vendor.service.bt.adv_audio_mask=1
 persist.vendor.btstack.aac_frm_ctl.enabled=true
 persist.vendor.btstack.qhs_enable=true
 
+# Display
+sys.brightness.disable_gamma_conversion=true
+
 # CNE
 persist.vendor.cne.feature=1
 
@@ -24,9 +27,6 @@ persist.data.df.iwlan_mux=9
 persist.data.df.mux_count=8
 persist.data.df.ul_mode=5
 persist.data.wda.enable=true
-
-# Display
-sys.brightness.disable_gamma_conversion=true
 
 # IMS
 persist.dbg.volte_avail_ovr=1
@@ -50,6 +50,7 @@ ro.media.recorder-max-base-layer-fps=60
 persist.vendor.data.mode=concurrent
 
 # NFC
+init.svc.vendor.stflashtool=stopped
 ro.nfc.port=I2C
 
 # Perf

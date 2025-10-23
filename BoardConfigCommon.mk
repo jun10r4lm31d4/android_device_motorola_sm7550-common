@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-COMMON_PATH := device/motorola/sm8550-common
+COMMON_PATH := device/motorola/sm7550-common
 
 # Architecture
 TARGET_ARCH := arm64
@@ -23,7 +23,7 @@ BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_USES_QCOM_MERGE_DTBS_SCRIPT := true
 TARGET_NEEDS_DTBOIMAGE := true
-TARGET_MERGE_DTBS_WILDCARD ?= kalama*base
+TARGET_MERGE_DTBS_WILDCARD ?= crow*base
 
 # Kernel
 BOARD_BOOT_HEADER_VERSION := 4
@@ -43,7 +43,7 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_RAMDISK_USE_LZ4 := true
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
-TARGET_KERNEL_SOURCE := kernel/motorola/sm8550
+TARGET_KERNEL_SOURCE := kernel/motorola/sm7550
 TARGET_KERNEL_CONFIG := \
     gki_defconfig \
     vendor/kalama_GKI.config \
@@ -51,8 +51,8 @@ TARGET_KERNEL_CONFIG := \
     vendor/ext_config/moto-kalama-gki.config
 
 # Kernel modules
-TARGET_KERNEL_SOURCE := kernel/motorola/sm8550
-TARGET_KERNEL_EXT_MODULE_ROOT := kernel/motorola/sm8550-modules
+TARGET_KERNEL_SOURCE := kernel/motorola/sm7550
+TARGET_KERNEL_EXT_MODULE_ROOT := kernel/motorola/sm7550-modules
 
 BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load.system_dlkm))
 BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load))
@@ -86,9 +86,8 @@ TARGET_KERNEL_EXT_MODULES := \
     qcom/opensource/video-driver \
     qcom/opensource/graphics-kernel \
     qcom/opensource/wlan/platform \
-    qcom/opensource/wlan/qcacld-3.0/.kiwi_v2 \
+    qcom/opensource/wlan/qcacld-3.0/.qca6750 \
     qcom/opensource/bt-kernel \
-    nxp/opensource/driver \
     motorola/drivers/mmi_annotate \
     motorola/drivers/mmi_info \
     motorola/drivers/power/bm_adsp_ulog \
@@ -103,18 +102,25 @@ TARGET_KERNEL_EXT_MODULES := \
     motorola/drivers/power/wakeup_sources \
     motorola/drivers/watchdogtest \
     motorola/drivers/regulator/wl2868c \
+    motorola/drivers/regulator/wl2864c \
     motorola/drivers/sensors \
-    motorola/drivers/misc/sx937x_multi \
+    motorola/drivers/misc/sx937x \
+    motorola/drivers/misc/awinic/sarsensor \
+    motorola/drivers/misc/awinic/aw862x_haptic_nv_v1 \
+    motorola/drivers/misc/suspend_marker \
     motorola/drivers/input/touchscreen/touchscreen_mmi \
     motorola/drivers/input/touchscreen/goodix_berlin_mmi \
     motorola/drivers/input/misc/goodix_fod_mmi \
+    motorola/drivers/input/misc/vl53L1_14_1_2 \
     motorola/drivers/moto_mm \
     motorola/drivers/moto_mmap_fault \
-    motorola/drivers/moto_swap
+    motorola/drivers/moto_swap \
+    motorola/drivers/nfc/st21nfc \
+    motorola/drivers/ese/st54spi_gpio
 
 # Platform
 BOARD_USES_QCOM_HARDWARE := true
-TARGET_BOARD_PLATFORM := kalama
+TARGET_BOARD_PLATFORM := crow
 
 BOARD_ROOT_EXTRA_SYMLINKS := \
     /vendor/fsg:/fsg
@@ -139,12 +145,16 @@ AB_OTA_PARTITIONS += \
 
 # Audio
 AUDIO_FEATURE_ENABLED_DLKM := true
-AUDIO_FEATURE_ENABLED_DTS_EAGLE := false
+AUDIO_FEATURE_ENABLED_EXTENDED_COMPRESS_FORMAT := true
 AUDIO_FEATURE_ENABLED_GEF_SUPPORT := true
-AUDIO_FEATURE_ENABLED_HW_ACCELERATED_EFFECTS := false
+AUDIO_FEATURE_ENABLED_GKI := true
 AUDIO_FEATURE_ENABLED_INSTANCE_ID := true
+AUDIO_FEATURE_ENABLED_AGM_HIDL := true
+AUDIO_FEATURE_ENABLED_LSM_HIDL := false
 AUDIO_FEATURE_ENABLED_PAL_HIDL := true
 AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
+AUDIO_FEATURE_ENABLED_SSR := true
+AUDIO_FEATURE_ENABLED_SVA_MULTI_STAGE := true
 BOARD_SUPPORTS_OPENSOURCE_STHAL := true
 BOARD_SUPPORTS_SOUND_TRIGGER := true
 BOARD_USES_ALSA_AUDIO := true
@@ -162,19 +172,25 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := default
 BOARD_USES_METADATA_PARTITION := true
 
 # Partitions
+TARGET_RO_FILE_SYSTEM_TYPE ?= ext4
+ifneq ($(TARGET_RO_FILE_SYSTEM_TYPE),erofs)
 -include vendor/lineage/config/BoardConfigReservedSize.mk
+else
+BOARD_EROFS_COMPRESSOR := lz4
+BOARD_EROFS_PCLUSTER_SIZE := 262144
+endif # TARGET_RO_FILE_SYSTEM_TYPE
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_DTBOIMG_PARTITION_SIZE := 25165824
 BOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 8388608
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 104857600
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_BUILD_VENDOR_RAMDISK_IMAGE := true
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
+BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
+BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
 BOARD_MOT_DP_GROUP_PARTITION_LIST := product system system_dlkm system_ext vendor vendor_dlkm
 BOARD_SUPER_PARTITION_GROUPS := mot_dp_group
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
@@ -204,7 +220,7 @@ ENABLE_VENDOR_RIL_SERVICE := true
 
 # SELinux
 include device/qcom/sepolicy_vndr/SEPolicy.mk
-include hardware/motorola/sepolicy/qti/SEPolicy.mk
+BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true
 BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
 PRODUCT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
 PRODUCT_PUBLIC_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/public
@@ -219,6 +235,19 @@ BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
 
+# HIDL
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
+    device/motorola/sm7550-common/device_framework_matrix.xml \
+    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml\
+    vendor/lineage/config/device_framework_matrix.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE += device/motorola/sm7550-common/framework_manifest.xml
+DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml
+DEVICE_MANIFEST_SKUS := crow
+DEVICE_MANIFEST_CROW_FILES += \
+    $(COMMON_PATH)/manifest_crow.xml \
+    hardware/qcom-caf/sm8550/audio/primary-hal/configs/common/manifest_non_qmaa.xml \
+    hardware/qcom-caf/sm8550/audio/primary-hal/configs/common/manifest_non_qmaa_extn.xml
+
 # WiFi
 BOARD_WLAN_DEVICE := qcwcn
 BOARD_HOSTAPD_DRIVER := NL80211
@@ -226,14 +255,14 @@ BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB_EVENT := "ON"
+CONFIG_IEEE80211AX := true
 WIFI_DRIVER_STATE_CTRL_PARAM := "/dev/wlan"
 WIFI_DRIVER_STATE_OFF := "OFF"
 WIFI_DRIVER_STATE_ON := "ON"
-WIFI_FEATURE_HOSTAPD_11AX := true
 WIFI_HIDL_FEATURE_AWARE := true
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # inherit from the proprietary version
-include vendor/motorola/sm8550-common/BoardConfigVendor.mk
+include vendor/motorola/sm7550-common/BoardConfigVendor.mk
