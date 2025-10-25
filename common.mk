@@ -35,8 +35,7 @@ PRODUCT_PACKAGES += \
     WifiResCommon_Sys \
     FrameworksResTarget \
     WifiResTarget \
-    NcmTetheringOverlayCommon \
-    DeviceAsWebcamOverlayCommon
+    NcmTetheringOverlayCommon
 
 # Add common definitions for Qualcomm
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
