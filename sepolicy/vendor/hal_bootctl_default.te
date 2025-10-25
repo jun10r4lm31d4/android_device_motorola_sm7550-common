@@ -1,3 +1,4 @@
+allow hal_bootctl_default block_device:blk_file getattr;
 allow hal_bootctl_default vendor_uefi_block_device:blk_file getattr;
 allow hal_bootctl_default {
     vendor_efs_boot_dev
